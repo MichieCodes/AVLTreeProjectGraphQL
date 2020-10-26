@@ -1,0 +1,32 @@
+type Book {
+    id: Int
+    ISBN: String
+    title: String
+    author: String
+}
+
+type AVLTreeDisplay {
+    name: String
+    attributes: Book
+    children: [AVLTreeDisplay]
+}
+type BinaryTreeDisplay {
+    name: String
+    children: [BinaryTreeDisplay]
+}
+
+type Query {
+    GetBooks: [Book]
+    GenerateAVLTree(comparator: String): AVLTreeDisplay
+    GenerateBinaryTree(nodes: Int!) : BinaryTreeDisplay
+    GetAVLTreeLogs: [String]
+    GetBinaryTreeLogs: [String]
+}
+
+type Mutation {
+    CreateBook(ISBN: String!, title: String!, author: String!) : Book
+    UpdateBook(id: Int!, ISBN: String!, title: String!, author: String!) : Book
+    LoadBooksFromText(text: String, append: Boolean!) : Boolean
+    DeleteBook(id: Int!) : Int
+    DeleteAllBooks: Boolean
+}

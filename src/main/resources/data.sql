@@ -1,0 +1,8 @@
+DROP TABLE book;
+
+CREATE TABLE book (
+    id     INTEGER PRIMARY KEY AUTOINCREMENT,
+    ISBN   VARCHAR(250),
+    title  VARCHAR(250),
+    author VARCHAR(250) 
+);
