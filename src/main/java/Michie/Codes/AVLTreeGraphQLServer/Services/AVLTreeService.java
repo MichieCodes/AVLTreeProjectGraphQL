@@ -3,6 +3,7 @@ package Michie.Codes.AVLTreeGraphQLServer.Services;
 import Michie.Codes.AVLTreeGraphQLServer.Models.AVLTreeDisplay;
 import Michie.Codes.AVLTreeGraphQLServer.Models.Book;
 import Michie.Codes.AVLTreeGraphQLServer.Trees.AVLTree;
+import com.google.common.base.Strings;
 import com.google.common.io.Resources;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,7 +37,7 @@ public class AVLTreeService {
             String[] lines = fileText.split("\n");
 
             for(String line: lines) {
-                if(line.isBlank()) continue; 
+                if(Strings.isNullOrEmpty(line)) continue; 
 
                 String[] properties = line.trim().split("\\s");
                 if(properties.length != 3) continue;

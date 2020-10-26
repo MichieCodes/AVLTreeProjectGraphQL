@@ -5,7 +5,9 @@ import Michie.Codes.AVLTreeGraphQLServer.Services.AVLTreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import graphql.schema.DataFetcher;
+import com.google.common.base.Strings;
 import java.util.List;
+
 
 @Component
 public class AVLTreeDataFetcher {
@@ -15,7 +17,7 @@ public class AVLTreeDataFetcher {
     public DataFetcher<AVLTreeDisplay> generateAVLTree() {
         return environmentVariables -> {
             String comparator = environmentVariables.getArgument("comparator");
-            if(comparator == null || comparator.isBlank()) comparator = "ISBN";
+            if(comparator == null || Strings.isNullOrEmpty(comparator)) comparator = "ISBN";
             
             return avlTreeService.generateAVLTree(true, comparator.trim());
         };

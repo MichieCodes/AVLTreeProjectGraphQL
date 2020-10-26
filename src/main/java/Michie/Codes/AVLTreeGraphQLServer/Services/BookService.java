@@ -4,6 +4,7 @@ import Michie.Codes.AVLTreeGraphQLServer.Models.Book;
 import Michie.Codes.AVLTreeGraphQLServer.Repositories.BookRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.google.common.base.Strings;
 import com.google.common.io.Resources;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class BookService {
     }
 
     public Book createBook(String ISBN, String title, String author) {
-        if(ISBN.isBlank() || title.isBlank() || author.isBlank()) return null;
+        if(Strings.isNullOrEmpty(ISBN) || Strings.isNullOrEmpty(title) || Strings.isNullOrEmpty(author)) return null;
 
         Book newBook = new Book();
         newBook.ISBN = ISBN;
@@ -29,7 +30,7 @@ public class BookService {
         return bookRepository.save(newBook);
     }
     public Book updateBook(Integer id, String ISBN, String title, String author) {
-        if(id == null || ISBN.isBlank() || title.isBlank() || author.isBlank()) return null;
+        if(id == null || Strings.isNullOrEmpty(ISBN) || Strings.isNullOrEmpty(title) || Strings.isNullOrEmpty(author)) return null;
 
         Book updatedBook = bookRepository.findById(id).orElse(null);
         if(updatedBook == null) return null;
@@ -42,11 +43,11 @@ public class BookService {
     }
     
     public Boolean loadBooksFromText(String Text, Boolean append, Boolean loadDefault) {
-        if(!loadDefault.booleanValue() && Text.isBlank()) return false; 
+        if(!loadDefault.booleanValue() && Strings.isNullOrEmpty(Text)) return false; 
         try {
             if(loadDefault.booleanValue())
                 Text = Resources.toString(Resources.getResource("Books.txt"), StandardCharsets.UTF_8);
-            if(Text.isBlank()) return false; 
+            if(Strings.isNullOrEmpty(Text)) return false; 
         } catch(Exception e) {
             return false;
         }
@@ -55,7 +56,7 @@ public class BookService {
         String[] lines = Text.split("\n");
 
         for(String line: lines) {
-            if(line.isBlank()) continue; 
+            if(Strings.isNullOrEmpty(line)) continue; 
 
             String[] properties = line.trim().split("\\s");
             if(properties.length != 3) return false;

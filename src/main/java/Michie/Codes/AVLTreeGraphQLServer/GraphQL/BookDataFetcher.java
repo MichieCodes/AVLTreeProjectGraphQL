@@ -4,6 +4,7 @@ import Michie.Codes.AVLTreeGraphQLServer.Models.Book;
 import Michie.Codes.AVLTreeGraphQLServer.Services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import com.google.common.base.Strings;
 import graphql.schema.DataFetcher;
 
 @Component
@@ -36,7 +37,7 @@ public class BookDataFetcher {
             String Text = environmentVariables.getArgument("text");
 
             return bookService.loadBooksFromText(
-                Text, environmentVariables.getArgument("append"), Text == null || Text.isBlank()
+                Text, environmentVariables.getArgument("append"), Text == null || Strings.isNullOrEmpty(Text)
             );
         };
     }
